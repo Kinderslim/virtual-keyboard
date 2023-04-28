@@ -21,20 +21,58 @@ let keyboardWrapper = document.createElement("div");
 keyboardWrapper.className = "keyboard_wrapper";
 document.body.append(keyboardWrapper)
 
-/*const keyTopRows = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 173, 61, 8];
-const keyFirstRows = [9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 220];
-const keySecondRows = [20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 59, 222, 13];
-const keyThirdRows = [16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16];
-const keyBottomRows = [17, 18, 32, 18, 17];*/
-const keyRows = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 173, 61, 8, 9, 81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 220, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 59, 222, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 16, 17, 18, 32, 18, 17];
+/*const keyTopRows = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 8];
+const keyFirstRows = [9, 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 92];
+const keySecondRows = [0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 999];
+const keyThirdRows = [15, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 15];
+const keyBottomRows = [917, 918, 32, 918, 917];*/
+const keyRows = [96, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 45, 61, 8, 9, 113, 119, 101, 114, 116, 121, 117, 105, 111, 112, 91, 93, 92, 0, 97, 115, 100, 102, 103, 104, 106, 107, 108, 59, 39, 999, 15, 122, 120, 99, 118, 98, 110, 109, 44, 46, 47, 15, 917, 918, 32, 918, 917];
 
 let initKeyboard = () => {
   let keys = "";
   for (let i = 0; i < keyRows.length; i++) {
     if (keyRows[i] === 8) {
-      keys += "<div class='key key_backspace' >" + String.fromCharCode(keyRows[i])+"</div>";
+      keys += "<div class='key key_backspace' >" + "backspace" + "</div>";
     } else {
-      keys += "<div class=key >" + String.fromCharCode(keyRows[i])+"</div>";
+      if (keyRows[i] === 96) {
+        keys += "<div class='key key_one-quot' >" + String.fromCharCode(keyRows[i]) + "</div>";
+      } else {
+        if (keyRows[i] === 9) {
+          keys += "<div class='key key_tab' >" + "tab" + "</div>";
+        } else {
+          if (keyRows[i] === 0) {
+            keys += "<div class='key key_caps-lock' >" + "caps lock" + "</div>";
+          } else {
+            if (keyRows[i] === 999) {
+              keys += "<div class='key key_enter' >" + "enter" + "</div>";
+            } else {
+              if (keyRows[i] === 15) {
+                keys += "<div class='key key_shift' >" + "shift" + "</div>";
+              } else {
+                if (keyRows[i] === 917) {
+                  keys += "<div class='key key_ctrl' >" + "ctrl" + "</div>";
+                } else {
+                  if (keyRows[i] === 918) {
+                    keys += "<div class='key key_alt' >" + "alt" + "</div>";
+                  } else {
+                    if (keyRows[i] === 32) {
+                      keys += "<div class='key key_space' >" + "space" + "</div>";
+                    } else {
+                      keys += "<div class=key >" + String.fromCharCode(keyRows[i])+"</div>";
+                    }
+                  }
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
     }
   }
   document.querySelector(".keyboard_wrapper").innerHTML = keys;
