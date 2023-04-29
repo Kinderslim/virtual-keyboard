@@ -58,7 +58,7 @@ let initKeyboard = () => {
                     if (keyRows[i] === 32) {
                       keys += "<div class='key key_space' >" + "space" + "</div>";
                     } else {
-                      keys += "<div class=key >" + String.fromCharCode(keyRows[i])+"</div>";
+                      keys += "<div class='key key_simple' data='" + keyRows[i] + "'>" + String.fromCharCode(keyRows[i])+"</div>";
                     }
                   }
                 }
@@ -79,3 +79,18 @@ let initKeyboard = () => {
 }
 
 initKeyboard();
+
+// Activation mouse keys
+
+document.querySelectorAll(".key_simple").forEach(function (click) {
+  click.onclick = function() {
+    document.querySelectorAll(".key_simple").forEach(function (click) {
+      click.classList.remove('active_key');
+    });
+    this.classList.add('active_key');
+  }
+});
+
+// Activation keys
+
+let keys = document.querySelectorAll('.key');

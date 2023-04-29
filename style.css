@@ -16,6 +16,7 @@
 
 .textarea {
   font-size: 16px;
+  color: white;
   background-color: rgb(48, 44, 39);
   display: flex;
   margin: 10px auto;
@@ -24,11 +25,13 @@
 .keyboard_wrapper {
   width: 900px;
   height: 350px;
+  background-color: rgb(30, 12, 112);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   border: 2px solid brown;
+  border-radius: 5px;
   padding: 5px;
   margin: 10px auto;
 }
@@ -45,6 +48,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.key_simple {
+
 }
 
 .key_backspace {
@@ -82,3 +89,25 @@
 .key_space {
   width: 500px;
 }
+
+.active_key {
+  animation-duration: 0.5s;
+  animation-name: key_animation;
+}
+
+@keyframes key_animation {
+  50% {
+    background-color: rgb(110, 84, 84);
+    border-radius: 20px;
+  }
+  100% {
+    background-color: none;
+    border-radius: 10px;
+  }
+}
+
+/*.active_key {
+  background-color: rgb(61, 8, 8);
+  border-radius: 20px;
+  transition: .2s;
+}*/
