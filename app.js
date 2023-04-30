@@ -35,7 +35,7 @@ let initKeyboard = () => {
       keys += "<div class='key key_backspace' >" + "backspace" + "</div>";
     } else {
       if (keyRows[i] === 96) {
-        keys += "<div class='key key_one-quot' >" + String.fromCharCode(keyRows[i]) + "</div>";
+        keys += "<div class='key key_one-quot key_simple' >" + String.fromCharCode(keyRows[i]) + "</div>";
       } else {
         if (keyRows[i] === 9) {
           keys += "<div class='key key_tab' >" + "tab" + "</div>";
@@ -56,7 +56,7 @@ let initKeyboard = () => {
                     keys += "<div class='key key_alt' >" + "alt" + "</div>";
                   } else {
                     if (keyRows[i] === 32) {
-                      keys += "<div class='key key_space' >" + "space" + "</div>";
+                      keys += "<div class='key key_space key_simple' >" + "space" + "</div>";
                     } else {
                       keys += "<div class='key key_simple' data='" + keyRows[i] + "'>" + String.fromCharCode(keyRows[i])+"</div>";
                     }
@@ -82,15 +82,61 @@ initKeyboard();
 
 // Activation mouse keys
 
-document.querySelectorAll(".key_simple").forEach(function (click) {
+let caps_lock = 'off';
+document.querySelectorAll(".key").forEach(function (click) {
   click.onclick = function() {
-    document.querySelectorAll(".key_simple").forEach(function (click) {
+    document.querySelectorAll(".key").forEach(function (click) {
       click.classList.remove('active_key');
     });
-    this.classList.add('active_key');
+    click.classList.add('active_key');
+    let text = click.textContent;
+    if (text === 'space') {
+      text = ' ';
+      textArea.append(text);
+    } else if (text === 'backspace') {
+      let sliceText = textArea.textContent;
+      let sliceText2 = sliceText.substring(0, sliceText.length - 1);
+      let delSliceText = document.querySelector('.textarea');
+      while (delSliceText.firstChild) {
+        delSliceText.removeChild(delSliceText.firstChild);
+      }
+      textArea.append(sliceText2);
+    } else if (text === 'tab') {
+      text = '\t';
+      textArea.append(text);
+    } else if (text === 'enter') {
+      text = '\n';
+      textArea.append(text);
+    } else if (text === 'caps lock') {
+      if (caps_lock === 'off') {
+        caps_lock = 'on';
+        click.classList.remove('caps-lock_off')
+        click.classList.add('caps-lock_on');
+      } else {
+        caps_lock = 'off';
+        click.classList.remove('caps-lock_on')
+        click.classList.add('caps-lock_off');
+      }
+    } else if (text === 'shift' || text === 'ctrl' || text === 'alt') {
+
+    }
+    else {
+      if (caps_lock === 'on') {
+        textArea.append(text.toUpperCase());
+      } else {
+        textArea.append(text);
+      }
+    }
   }
 });
 
 // Activation keys
 
-let keys = document.querySelectorAll('.key');
+document.addEventListener('keydown', function(elem) {
+  for(i = 0; i<keyRows.length; i++) {
+    console.log(keyRows[i]);
+    if (elem.key === keys[i].getAttribute('data')) {
+      this.classList.add('active_key');
+    }
+  }
+});

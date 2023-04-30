@@ -50,6 +50,10 @@
   justify-content: center;
 }
 
+.key:hover {
+  cursor: pointer;
+}
+
 .key_simple {
 
 }
@@ -104,6 +108,18 @@
     background-color: none;
     border-radius: 10px;
   }
+}
+
+.caps-lock_on {
+  background-color: rgb(110, 84, 84);
+  border-radius: 20px;
+  transition: .2s;
+}
+
+.caps-lock_off {
+  background-color: rgb(32, 27, 21);
+  border-radius: 10px;
+  transition: .2s;
 }
 
 /*.active_key {
