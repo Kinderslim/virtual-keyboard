@@ -76,7 +76,7 @@ let initKeyboard = () => {
     }
   }
   document.querySelector(".keyboard_wrapper").innerHTML = keys;
-}
+};
 
 initKeyboard();
 
@@ -110,11 +110,11 @@ document.querySelectorAll(".key").forEach(function (click) {
     } else if (text === 'caps lock') {
       if (caps_lock === 'off') {
         caps_lock = 'on';
-        click.classList.remove('caps-lock_off')
+        click.classList.remove('caps-lock_off');
         click.classList.add('caps-lock_on');
       } else {
         caps_lock = 'off';
-        click.classList.remove('caps-lock_on')
+        click.classList.remove('caps-lock_on');
         click.classList.add('caps-lock_off');
       }
     } else if (text === 'shift' || text === 'ctrl' || text === 'alt') {
@@ -162,11 +162,11 @@ document.addEventListener('keydown', function(event) {
   } else if (event.key === 'CapsLock') {
     if (caps_lock === 'off') {
       caps_lock = 'on';
-      document.querySelector('.key_caps-lock').classList.remove('caps-lock_off')
+      document.querySelector('.key_caps-lock').classList.remove('caps-lock_off');
       document.querySelector('.key_caps-lock').classList.add('caps-lock_on');
     } else {
       caps_lock = 'off';
-      document.querySelector('.key_caps-lock').classList.remove('caps-lock_on')
+      document.querySelector('.key_caps-lock').classList.remove('caps-lock_on');
       document.querySelector('.key_caps-lock').classList.add('caps-lock_off');
     }
   } else if (event.code === 'ShiftLeft') {
