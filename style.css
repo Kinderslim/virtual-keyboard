@@ -54,10 +54,6 @@
   cursor: pointer;
 }
 
-.key_simple {
-
-}
-
 .key_backspace {
   width: 85px;
 }
@@ -82,20 +78,12 @@
   width: 120px;
 }
 
-.key_ctrl {
-
-}
-
-.key_alt {
-
-}
-
 .key_space {
   width: 500px;
 }
 
 .active_key {
-  animation-duration: 0.5s;
+  animation-duration: 0.2s;
   animation-name: key_animation;
 }
 

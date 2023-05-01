@@ -47,13 +47,13 @@ let initKeyboard = () => {
               keys += "<div class='key key_enter' >" + "enter" + "</div>";
             } else {
               if (keyRows[i] === 15) {
-                keys += "<div class='key key_shift' >" + "shift" + "</div>";
+                keys += "<div class='key key_shift key_shift_right' >" + "shift" + "</div>";
               } else {
                 if (keyRows[i] === 917) {
-                  keys += "<div class='key key_ctrl' >" + "ctrl" + "</div>";
+                  keys += "<div class='key key_ctrl key_ctrl_right' >" + "ctrl" + "</div>";
                 } else {
                   if (keyRows[i] === 918) {
-                    keys += "<div class='key key_alt' >" + "alt" + "</div>";
+                    keys += "<div class='key key_alt key_alt_right' >" + "alt" + "</div>";
                   } else {
                     if (keyRows[i] === 32) {
                       keys += "<div class='key key_space key_simple' >" + "space" + "</div>";
@@ -132,11 +132,100 @@ document.querySelectorAll(".key").forEach(function (click) {
 
 // Activation keys
 
-document.addEventListener('keydown', function(elem) {
-  for(i = 0; i<keyRows.length; i++) {
-    console.log(keyRows[i]);
-    if (elem.key === keys[i].getAttribute('data')) {
-      this.classList.add('active_key');
+document.querySelector('.key_shift').classList.remove('key_shift_right');
+document.querySelector('.key_ctrl').classList.remove('key_ctrl_right');
+document.querySelector('.key_alt').classList.remove('key_alt_right');
+
+document.addEventListener('keydown', function(event) {
+  console.log(event);
+  if (event.key === 'Enter') {
+    let text = '\n';
+    textArea.append(text);
+    document.querySelector('.key_enter').classList.add('active_key');
+  } else if (event.key === 'Backspace') {
+      let sliceText = textArea.textContent;
+      let sliceText2 = sliceText.substring(0, sliceText.length - 1);
+      let delSliceText = document.querySelector('.textarea');
+      while (delSliceText.firstChild) {
+        delSliceText.removeChild(delSliceText.firstChild);
+      }
+      textArea.append(sliceText2);
+    document.querySelector('.key_backspace').classList.add('active_key');
+  } else if (event.key === 'Tab') {
+    let text = '\t';
+    textArea.append(text);
+    document.querySelector('.key_tab').classList.add('active_key');
+  } else if (event.key === ' ') {
+    let text = ' ';
+    textArea.append(text);
+    document.querySelector('.key_space').classList.add('active_key');
+  } else if (event.key === 'CapsLock') {
+    if (caps_lock === 'off') {
+      caps_lock = 'on';
+      document.querySelector('.key_caps-lock').classList.remove('caps-lock_off')
+      document.querySelector('.key_caps-lock').classList.add('caps-lock_on');
+    } else {
+      caps_lock = 'off';
+      document.querySelector('.key_caps-lock').classList.remove('caps-lock_on')
+      document.querySelector('.key_caps-lock').classList.add('caps-lock_off');
     }
+  } else if (event.code === 'ShiftLeft') {
+      document.querySelector('.key_shift').classList.remove('caps-lock_off');
+      document.querySelector('.key_shift').classList.add('caps-lock_on');
+      caps_lock = 'on';
+  } else if (event.code === 'ControlLeft') {
+    document.querySelector('.key_ctrl').classList.remove('caps-lock_off');
+    document.querySelector('.key_ctrl').classList.add('caps-lock_on');
+  } else if (event.code === 'AltLeft') {
+    document.querySelector('.key_alt').classList.remove('caps-lock_off');
+    document.querySelector('.key_alt').classList.add('caps-lock_on');
+  } else if (event.code === 'ShiftRight') {
+    document.querySelector('.key_shift_right').classList.remove('caps-lock_off');
+    document.querySelector('.key_shift_right').classList.add('caps-lock_on');
+    caps_lock = 'on';
+  } else if (event.code === 'ControlRight') {
+    document.querySelector('.key_ctrl_right').classList.remove('caps-lock_off');
+    document.querySelector('.key_ctrl_right').classList.add('caps-lock_on');
+  } else if (event.code === 'AltRight') {
+    document.querySelector('.key_alt_right').classList.remove('caps-lock_off');
+    document.querySelector('.key_alt_right').classList.add('caps-lock_on');
   }
+
+  document.querySelectorAll('.key').forEach(function(keydown) {
+    let text = keydown.textContent;
+    if (event.key === text && caps_lock === 'off') {
+      keydown.classList.add('active_key');
+      textArea.append(text);
+    } else if (event.key === text.toUpperCase() && caps_lock === 'on') {
+      keydown.classList.add('active_key');
+      textArea.append(text.toUpperCase());
+    }
+  })
+});
+
+document.addEventListener('keyup', function(event) {
+  document.querySelectorAll(".key").forEach(function (keydown) {
+    keydown.classList.remove('active_key');
+    if (event.code === 'ShiftLeft') {
+      document.querySelector('.key_shift').classList.remove('caps-lock_on');
+      document.querySelector('.key_shift').classList.add('caps-lock_off');
+      caps_lock = 'off';
+    } else if (event.code === 'ControlLeft') {
+      document.querySelector('.key_ctrl').classList.remove('caps-lock_on');
+      document.querySelector('.key_ctrl').classList.add('caps-lock_off');
+    } else if (event.code === 'AltLeft') {
+      document.querySelector('.key_alt').classList.remove('caps-lock_on');
+      document.querySelector('.key_alt').classList.add('caps-lock_off');
+    } else if (event.code === 'ShiftRight') {
+      document.querySelector('.key_shift_right').classList.remove('caps-lock_on');
+      document.querySelector('.key_shift_right').classList.add('caps-lock_off');
+      caps_lock = 'off';
+    } else if (event.code === 'ControlRight') {
+      document.querySelector('.key_ctrl_right').classList.remove('caps-lock_on');
+      document.querySelector('.key_ctrl_right').classList.add('caps-lock_off');
+    } else if (event.code === 'AltRight') {
+      document.querySelector('.key_alt_right').classList.remove('caps-lock_on');
+      document.querySelector('.key_alt_right').classList.add('caps-lock_off');
+    }
+  })
 });
